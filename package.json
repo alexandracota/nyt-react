@@ -1,0 +1,36 @@
+{
+  "name": "nyt-react",
+  "version": "1.0.0",
+  "description": "NYT app with react",
+  "main": "server.js",
+  "scripts": {
+    "server": "node server.js",
+    "client": "cd client && npm run start",
+    "start": "./node_modules/.bin/concurrently \"./node_modules/.bin/nodemon\" \"npm run client\"",
+    "build": "cd client && npm run build",
+    "deploy": "npm run build && git add",
+    "seed": "node scripts/seedDB",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexandracota/nyt-react.git"
+  },
+  "author": "Alex Cota",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexandracota/nyt-react/issues"
+  },
+  "homepage": "https://github.com/alexandracota/nyt-react#readme",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.12",
+    "react-router-dom": "^4.2.2"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.12.1"
+  }
+}
