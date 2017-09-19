@@ -7,5 +7,6 @@ const App = () =>
     <Nav />
     <Articles />
   </div>
+  console.log("here");
 
 export default App;
