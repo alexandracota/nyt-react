@@ -3,14 +3,14 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 
 
 // Configure body parser for AJAX requests
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // Serve up static assets
-app.use(express.static("./client/src/index.js"));
+app.use(express.static("client/public"));
 // Add routes, both API and view
 app.use(routes);
 
@@ -21,9 +21,8 @@ mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/nyt-react",
   {
     useMongoClient: true
-  }
-);
-
+  });
+console.log("Mongoose");
 
 // Start the API server
 app.listen(PORT, function() {
