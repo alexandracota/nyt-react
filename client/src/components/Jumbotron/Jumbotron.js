@@ -1,8 +1,13 @@
 import React from 'react';
 
-const Jumbotron = ({ children }) => 
-<div style = {{ height: 300 }} className = 'jumbotron'>
-	{children}
-</div>
+var styles = {
+	fontSize: '25',
+	textAlign: 'center'
+}
+
+const Jumbotron = () => 
+<div className = 'jumbotron' style = {styles}>
+A React App by Alex Cota
+</div>;
 
 export default Jumbotron;
