@@ -1,5 +1,5 @@
 import React from 'react';
-// import SearchBtn from '../SearchBtn';
+import SearchBtn from '../SearchBtn';
 
 var styles = {
   fontSize: '25',
@@ -23,6 +23,7 @@ const Form = () =>
 			<div className = 'endYear'>
 				End Year
 			</div>
+			<SearchBtn />
 		</div>
 	</div>
 

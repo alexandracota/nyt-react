@@ -1,14 +1,17 @@
 import React from 'react';
+import { button } from 'react-bootstrap';
 
 var styles = {
 	textAlign: center
 }
 
 const SearchBtn = () =>
-	<span className = 'search-btn'>
-		Search!
-	</span>
+	<buttonToolbar >
+		<Button>
+			Search!
+		</Button>
+	</buttonToolbar>
 
 
 
-export default SearchBtn;
+export SearchBtn;
