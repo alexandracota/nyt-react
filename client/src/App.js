@@ -1,14 +1,6 @@
-import React from 'react';
-// import Articles from './pages/Articles';
-import Nav from './components/Nav';
-import Jumbotron from './components/Jumbotron';
-import Form from './components/Form';
+import React from "react";
+import ReactDOM from "react-dom";
 
-const App = () =>
-  <div>
-    <Nav />
-    <Jumbotron/>
-    <Form/>
-  </div>
+var routes = require("./config/routes");
 
-export default App;
+ReactDOM.render(routes, document.getElementById("app"));
