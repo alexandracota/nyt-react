@@ -23,7 +23,7 @@ app.use(express.static("public"));
 //==========================================
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://heroku_4p6zbbvp:kefpiegt6qolfkmb2v28q9vtqn@ds141454.mlab.com:41454/heroku_4p6zbbvp");
+mongoose.connect("mongodb://heroku_1jb615xr:kef0guk1ib9iqbugsm8ukc40mc@ds249415.mlab.com:49415/heroku_1jb615xr");
 var db = mongoose.connection;
 
 db.on("error", function(err) {
@@ -35,7 +35,6 @@ db.once("open", function() {
 });
 
 //==========================================
-
 //Route to get all saved articles.
 app.get("/api/saved", function(req, res) {
 	Article.find({})
