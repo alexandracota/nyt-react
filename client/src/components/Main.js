@@ -39,6 +39,10 @@ var Main = React.createClass({
 
 					{this.props.children}
 
+					<Search />
+
+					<Saved />
+
 					<footer>
 						<hr />
 						<p className="pull-right">

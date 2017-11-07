@@ -4,6 +4,10 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 
+//Scraping packages
+const cheerio = require("cheerio");
+const request = require("request");
+
 const app = express();
 const PORT = process.env.PORT || 3002;
 
@@ -40,13 +44,49 @@ db.once("open", function() {
 const Article = require("./server/model");
 
 //==========================================
+
+//Redirect to saved
 app.get("/", function(req, res) {
 	res.redirect("/api/saved");
 });
 
+app.get("/scrape", function(req, res) {
+	request("http://www.nytimes.com/pages/todayspaper/index.html", function(error, response, html) {
+		var $ = cheerio.load(html);
+		$("h3").each(function(i, element) {
+			var result = {};
+
+			result.title = $(this).children("a").text();
+			result.link = $(this).children("a").attr("href");
+
+			var entry = new Article(result);
+
+			entry.save(function(err, doc) {
+				if (err) {
+					console.log(err);
+				} else {
+					console.log(doc);
+				}
+			});
+		});
+	});
+
+	res.send("Scrape complete");
+});
+
+app.get("/articles", function(req, res) {
+	db.getCollection('articles').find({}, function(error, doc) {
+		if (error) {
+			console.log(error);
+		} else {
+			res.json(doc);
+		}
+	});
+});
+
 //Route to get all saved articles.
 app.get("/api/saved", function(req, res) {
-	Article.find({})
+	db.getCollection('articles').find({})
 	.exec(function(err, doc) {
 		if (err) {
 			console.log("Error getting saved articles: ", err);
