@@ -4,37 +4,46 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 
-//Require schemas
-const Article = require("./server/model");
-
 const app = express();
 const PORT = process.env.PORT || 3002;
 
-//Run Morgan for logging
-app.use(logger("dev"));
 // Configure body parser for AJAX requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }))
 // Serve up static assets
-app.use(express.static("public"));
+app.use(express.static(process.cwd() + "client/public"));
 
 //==========================================
 
-// Connect to the Mongo DB
-mongoose.connect("mongodb://heroku_1jb615xr:kef0guk1ib9iqbugsm8ukc40mc@ds249415.mlab.com:49415/heroku_1jb615xr");
+//Connect to localhost if not a production environment
+if(process.env.NODE_ENV == 'production') {
+	// Connect to the Mongo DB
+	mongoose.connect("mongodb://heroku_1jb615xr:kef0guk1ib9iqbugsm8ukc40mc@ds249415.mlab.com:49415/heroku_1jb615xr");
+} else {
+	mongoose.connect('mongodb://localhost/nytreact');
+}
 var db = mongoose.connection;
 
+//Log any mongoose errors
 db.on("error", function(err) {
 	console.log("Mongoose error: ", err);
 })
 
+//Once mongoose connects to the db, log a success message
 db.once("open", function() {
 	console.log("Mongoose connection successful");
 });
 
+//Require schemas
+const Article = require("./server/model");
+
 //==========================================
+app.get("/", function(req, res) {
+	res.redirect("/api/saved");
+});
+
 //Route to get all saved articles.
 app.get("/api/saved", function(req, res) {
 	Article.find({})
@@ -75,9 +84,9 @@ app.delete("/api/delete", function (req, res) {
 	});
 });
 
-//Any non API GET routes will be directed to our React App and handled by React router
+//Any non API routes will be directed to our React App and handled by React router
 app.get("*", function(req, res) {
-	res.sendFile(_dirname + "/public/index.html");
+	res.sendFile(__dirname + "/client/public");
 });
 
 //==============================================

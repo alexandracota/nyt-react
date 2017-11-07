@@ -2,7 +2,7 @@ import React from "react";
 
 var helpers=require("../utils/helpers");
 
-var Main = React.createClass({
+var Saved = React.createClass({
 	getInitialState: function() {
 		return { savedArticles: "" };
 	},
@@ -101,4 +101,4 @@ renderContainer: function() {
 
 });
 
-module.exports = Main;
+export default Saved;
