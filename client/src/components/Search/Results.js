@@ -14,7 +14,7 @@ var Results = React.createClass({
 	},
 
 	//Sends search terms to parent Search component
-	handleClick: function(item) {
+	handleClick (item) {
 		console.log(item);
 
 		helpers.postSaved(item.headline.main, item.pub_date, item.web_url).then(function() {
@@ -23,7 +23,7 @@ var Results = React.createClass({
 	},
 
 	//Maps through articles and outputs HTML
-	renderArticles: function() {
+	renderArticles (props) {
 		return this.props.results.docs.map(function(article, index) {
 
 			return (
@@ -48,7 +48,7 @@ var Results = React.createClass({
 		}.bind(this));
 	},
 
-	renderContainer: function() {
+	renderContainer () {
 		return (
 			<div className="main-container">
 				<div className="row">
@@ -71,7 +71,7 @@ var Results = React.createClass({
 		);
 	},
 
-	render: function() {
+	render () {
 		if (!this.props.results.docs) {
 			return (
 				<li className="list-group-item">

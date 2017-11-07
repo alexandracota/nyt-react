@@ -2,9 +2,15 @@ import React from "react";
 
 import helpers from "../utils/helpers";
 
-var Saved = React.createClass({
+import "./Saved.css";
+
+const Saved = (props) => ({
+
+	//Set the initial state of the Saved component to an empty string
 	getInitialState: function() {
-		return { savedArticles: "" };
+		return { 
+			savedArticles: "" 
+		};
 	},
 
 	componentDidMount: function() {
@@ -91,7 +97,7 @@ renderContainer: function() {
 		);
 	},
 
-	render: function() {
+	render () {
 		//if there are no articles, return this.renderEmpty()
 		if (!this.state.savedArticles) {
 			return this.renderEmpty();

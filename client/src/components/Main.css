@@ -1,0 +1,16 @@
+.container {
+	text-align: center;
+}
+
+.navbar-header {
+	padding: 20px;
+	float: right;
+}
+
+.searchsave {
+	padding: 20px;
+}
+
+.jumbotron {
+	padding-top: 50px;
+}

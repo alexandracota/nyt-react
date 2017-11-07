@@ -1,19 +1,22 @@
 import React from "react";
 
-var Query = require("./Search/Query");
-var Results = require("./Search/Results");
 
-var helpers = require("../utils/helpers");
+import Query from "./Search/Query";
+import Results from "./Search/Results";
+
+import helpers from "../utils/helpers";
+
+import "./Search.css";
 
 const Search  = (props) => ({
-	getInitialState: function() {
+	getInitialState () {
 		return {
 			results: {}
 		};
 	},
 
 	setQuery (newQuery, newStart, newEnd) {
-		helpers.runQuery(newQuery, newStart, newEnd).then(function(data) {
+		helpers.getArticles({}).then(function(data) {
 			this.setState({ results: { docs: data.docs } });
 		}.bind(this));
 	},
@@ -23,11 +26,10 @@ const Search  = (props) => ({
 
 		return (
 			<div className="main-container">
-				{/*Set Query*
-				<Query updateSearch={this.setQuery} />
-				*Pass results into component*
-				<Results results={this.state.results} />
-				*/}
+				{/*Set Query*/}
+				<Query />
+				{/*Pass results into component*/}
+				<Results />
 			</div>
 		);
 	}

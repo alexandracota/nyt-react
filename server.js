@@ -2,7 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 
 //Scraping packages
 const cheerio = require("cheerio");
@@ -40,6 +40,9 @@ db.once("open", function() {
 	console.log("Mongoose connection successful");
 });
 
+// var databaseUrl = "news-scrape";
+// var collections = ["articles"];
+
 //Require schemas
 const Article = require("./server/model");
 
@@ -47,7 +50,7 @@ const Article = require("./server/model");
 
 //Redirect to saved
 app.get("/", function(req, res) {
-	res.redirect("/api/saved");
+	res.redirect("/scrape");
 });
 
 app.get("/scrape", function(req, res) {
@@ -74,18 +77,18 @@ app.get("/scrape", function(req, res) {
 	res.send("Scrape complete");
 });
 
-app.get("/articles", function(req, res) {
-	db.getCollection('articles').find({}, function(error, doc) {
-		if (error) {
-			console.log(error);
-		} else {
-			res.json(doc);
-		}
-	});
-});
+// app.get("/articles", function(req, res) {
+// 	db.articles.find({}, function(error, doc) {
+// 		if (error) {
+// 			console.log(error);
+// 		} else {
+// 			res.json(doc);
+// 		}
+// 	});
+// });
 
 //Route to get all saved articles.
-app.get("/api/saved", function(req, res) {
+app.get("/api/articles", function(req, res) {
 	db.getCollection('articles').find({})
 	.exec(function(err, doc) {
 		if (err) {
@@ -97,32 +100,32 @@ app.get("/api/saved", function(req, res) {
 	});
 });
 
-//Route to add an article to the list of saved articles
-app.post("/api/saved", function(req,res) {
-	var newArticle = new Article(req.body);
-	console.log(req.body);
-	newArticle.save(function(err, doc) {
-		if (err) {
-			console.log("Error adding article: ", err);
-		}
-		else {
-			res.send(doc);
-		}
-	});
-});
+// //Route to add an article to the list of saved articles
+// app.post("/api/saved", function(req,res) {
+// 	var newArticle = new Article(req.body);
+// 	console.log(req.body);
+// 	newArticle.save(function(err, doc) {
+// 		if (err) {
+// 			console.log("Error adding article: ", err);
+// 		}
+// 		else {
+// 			res.send(doc);
+// 		}
+// 	});
+// });
 
-//Route to delete an article from the list of saved articles
-app.delete("/api/delete", function (req, res) {
-	var url = req.param("url");
-	Article.find({ url: url }).remove().exec(function(err) {
-		if (err) {
-			console.log("Error deleting article: ", err);
-		}
-		else {
-			res.send("Article deleted.");
-		}
-	});
-});
+// //Route to delete an article from the list of saved articles
+// app.delete("/api/delete", function (req, res) {
+// 	var url = req.param("url");
+// 	Article.find({ url: url }).remove().exec(function(err) {
+// 		if (err) {
+// 			console.log("Error deleting article: ", err);
+// 		}
+// 		else {
+// 			res.send("Article deleted.");
+// 		}
+// 	});
+// });
 
 //Any non API routes will be directed to our React App and handled by React router
 app.get("*", function(req, res) {
