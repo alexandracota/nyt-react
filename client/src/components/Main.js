@@ -1,9 +1,12 @@
 import React from "react";
-var Link  = require("react-router").Link;
+// import {link} from "react-router";
+import Search from "./Search";
+import Saved from "./Saved";
+import Axios from "axios";
 
 var Main = React.createClass({
 
-	render: function() {
+	render() {
 
 		return (
 			<div className="main-container">
@@ -17,13 +20,13 @@ var Main = React.createClass({
 								<span className="icon-bar"></span>
 								<span className="icon-bar"></span>
 								</button>
-								<Link className="navbar-brand" to="/">NYT-React</Link>
+								<a className="navbar-brand" href="/">NYT-React</a>
 							</div>
 
 							<div className="collapse navbar-collapse navbar-ex1-collapse">
 								<ul className="nav navbar-nav navbar-right">
-									<li><Link to="/search">Search</Link></li>
-									<li><Link to="/saved">Saved Articles</Link></li>
+									<li><a href="/search">Search</a></li>
+									<li><a href="/saved">Saved Articles</a></li>
 								</ul>
 							</div>
 						</div>

@@ -1,7 +1,7 @@
 import React from "react";
 
-var Query = require("./search/Query");
-var Results = require("./search/Results");
+var Query = require("./Search/Query");
+var Results = require("./Search/Results");
 
 var helpers = require("../utils/helpers");
 

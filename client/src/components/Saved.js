@@ -1,6 +1,6 @@
 import React from "react";
 
-var helpers=require("../utils/helpers");
+import helpers from "../utils/helpers";
 
 var Saved = React.createClass({
 	getInitialState: function() {
@@ -8,7 +8,7 @@ var Saved = React.createClass({
 	},
 
 	componentDidMount: function() {
-		helpers.getSaved().then(function(articleData) {
+		helpers.getArticles().then(function(articleData) {
 			this.setState({ savedArticles: articleData.data });
 			console.log("saved results", articleData.data);
 		}.bind(this));	
@@ -19,12 +19,12 @@ var Saved = React.createClass({
 		console.log(item);
 
 		//Delete the list
-		helpers.deleteSaved(item.title, item.date, item.url).then(function() {
+		helpers.deleteArticle(item.title, item.date, item.url).then(function() {
 			
 			//Get revised list
-			helpers.getSaved().then(function(articleData) {
+			helpers.getArticles().then(function(articleData) {
 				this.setState({ savedArticles: articleData.data });
-				console.log("saved results", acticleData.data);
+				console.log("saved results", articleData.data);
 			}.bind(this));
 		}.bind(this));
 	},

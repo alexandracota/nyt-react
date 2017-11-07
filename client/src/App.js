@@ -7,8 +7,8 @@ import Search from "./components/Search";
 
 
 const App = () =>
-<Router>
-	<body>
+<div>
+	<Router>
 		<div>
 			<Switch>
 				<Route exact path="/" component={Main} />
@@ -16,8 +16,8 @@ const App = () =>
 				<Route exact path="/search" component={Search} />
 			</Switch>
 		</div>
-	</body>
-</Router>
+	</Router>
+</div>
 
 export default App;
 

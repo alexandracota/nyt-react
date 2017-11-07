@@ -1,6 +1,7 @@
+import React from "react";
 import axios from "axios";
 
-export default {
+var helpers = {
   // Gets all books
   getArticles: function() {
     return axios.get("/api/articles");
@@ -18,3 +19,5 @@ export default {
     return axios.post("/api/articles", articleData);
   }
 };
+
+export default helpers;

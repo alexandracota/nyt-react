@@ -73,4 +73,4 @@ var Query = React.createClass({
 
 });
 
-module.exports = Query;
+export default Query;

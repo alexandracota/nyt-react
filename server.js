@@ -22,7 +22,7 @@ if(process.env.NODE_ENV == 'production') {
 	// Connect to the Mongo DB
 	mongoose.connect("mongodb://heroku_1jb615xr:kef0guk1ib9iqbugsm8ukc40mc@ds249415.mlab.com:49415/heroku_1jb615xr");
 } else {
-	mongoose.connect('mongodb://localhost/nytreact');
+	mongoose.connect('mongodb://localhost/news-scraper');
 }
 var db = mongoose.connection;
 
