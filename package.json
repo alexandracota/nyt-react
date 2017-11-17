@@ -23,14 +23,17 @@
   },
   "homepage": "https://github.com/alexandracota/nyt-react#readme",
   "dependencies": {
+    "axios": "^0.17.0",
     "body-parser": "^1.18.2",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.15.4",
+    "express-router": "0.0.1",
     "mongoose": "^4.11.12",
     "morgan": "^1.9.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router": "^4.2.0",
+    "react-scripts": "^1.0.17",
     "request": "^2.83.0"
   },
   "devDependencies": {

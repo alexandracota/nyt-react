@@ -1,15 +1,15 @@
+//Require mongoose
 var mongoose = require("mongoose");
 
+//Create a schema class
 var Schema = mongoose.Schema;
 
+//Create article schema
 var ArticleSchema = new Schema({
 	title: {
 		type: String
 	},
-	date: {
-		type: Date
-	},
-	url: {
+	link: {
 		type: String
 	}
 });
