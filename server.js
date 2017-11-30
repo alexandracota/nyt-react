@@ -27,25 +27,25 @@ app.use(express.static(process.cwd() + "client/public"));
 
 //==========================================
 
-//Connect to localhost if not a production environment
+// Connect to localhost if not a production environment
 // if(process.env.NODE_ENV == 'production') {
-// 	// Connect to the Mongo DB
-// 	mongoose.connect("mongodb://heroku_1jb615xr:kef0guk1ib9iqbugsm8ukc40mc@ds249415.mlab.com:49415/heroku_1jb615xr");
+	// Connect to the Mongo DB
+	mongoose.connect("mongodb://heroku_djhlnm1f:k5fjqioo8jalu9d9lhp8hd9g95@ds125146.mlab.com:25146/heroku_djhlnm1f");
 // } else {
-//For production
-mongoose.connect('mongodb://localhost/news-scraper');
+// For production
+// mongoose.connect('mongodb://localhost/news-scraper');
 // }
-var db = mongoose.connection;
+// var db = mongoose.connection;
 
-//Log any mongoose errors
-db.on("error", function(err) {
-	console.log("Mongoose error: ", err);
-})
+// //Log any mongoose errors
+// db.on("error", function(err) {
+// 	console.log("Mongoose error: ", err);
+// })
 
-//Once mongoose connects to the db, log a success message
-db.once("open", function() {
-	console.log("Mongoose connection successful");
-});
+// //Once mongoose connects to the db, log a success message
+// db.once("open", function() {
+// 	console.log("Mongoose connection successful");
+// });
 
 // //==============================================
 // //ROUTES
