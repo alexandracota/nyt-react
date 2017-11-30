@@ -1,13 +1,11 @@
 //Server Dependencies
+const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const app = express();
-const PORT = process.env.PORT || 3002;
-
-// //Initialize express router
-const router = express.Router();
+const PORT = process.env.PORT || 8080;
 
 //Scraping packages
 const cheerio = require("cheerio");
@@ -34,7 +32,8 @@ app.use(express.static(process.cwd() + "client/public"));
 // 	// Connect to the Mongo DB
 // 	mongoose.connect("mongodb://heroku_1jb615xr:kef0guk1ib9iqbugsm8ukc40mc@ds249415.mlab.com:49415/heroku_1jb615xr");
 // } else {
-	mongoose.connect('mongodb://localhost/news-scraper');
+//For production
+mongoose.connect('mongodb://localhost/news-scraper');
 // }
 var db = mongoose.connection;
 
@@ -48,104 +47,91 @@ db.once("open", function() {
 	console.log("Mongoose connection successful");
 });
 
-//==============================================
-//ROUTES
+// //==============================================
+// //ROUTES
 
-//Scrape the current NYT front page for articles.
-app.get("/scrape", function(req, res) {
-	request("http://www.nytimes.com/pages/todayspaper/index.html", function(error, response, html) {
-		var $ = cheerio.load(html);
-		$("h3").each(function(i, element) {
-			var result = {};
+// //Scrape the current NYT front page for articles.
+// app.get("/scrape", function(req, res) {
+// 	request("http://www.nytimes.com/pages/todayspaper/index.html", function(error, response, html) {
+// 		var $ = cheerio.load(html);
+// 		$("h3").each(function(i, element) {
+// 			var result = {};
 
-			result.title = $(this).children("a").text();
-			result.link = $(this).children("a").attr("href");
+// 			result.title = $(this).children("a").text();
+// 			result.link = $(this).children("a").attr("href");
 
-			var entry = new Article(result);
+// 			var entry = new Article(result);
 
-			entry.save(function(err, doc) {
-				if (err) {
-					console.log(err);
-				} else {
-					console.log(doc);
-				}
-			});
-		});
-	});
+// 			entry.save(function(err, doc) {
+// 				if (err) {
+// 					console.log(err);
+// 				} else {
+// 					console.log(doc);
+// 				}
+// 			});
+// 		});
+// 	});
 
-	res.send("Scrape complete");
-});
+// 	res.send("Scrape complete");
+// });
 
-// router.get("/articles", function(req, res) {
-// 	db.articles.find({}, function(error, doc) {
-// 		if (error) {
-// 			console.log(error);
-// 		} else {
-// 			res.json(doc);
+// //Route to get all saved articles.
+// app.get("/api/saved", function(req, res) {
+// 	//Grab every document in the Articles array
+// 	Article.find({}, function(err, data) {
+// 		if (err) {
+// 			console.log("Error getting saved articles: ", err);
+// 		}
+// 		else {
+// 			// var resultData = [];
+// 			// data.forEach(function (articles) {
+// 			// 	resultData.push({
+// 			// 		title: articles.title,
+// 			// 		url: articles.url
+// 			// 	});
+// 			// });
+// 			// res.send(data);
+// 			res.json(data);
 // 		}
 // 	});
 // });
 
-//Route to get all saved articles.
-app.get("/api/saved", function(req, res) {
-	//Grab every document in the Articles array
-	Article.find({}, function(err, data) {
-		if (err) {
-			console.log("Error getting saved articles: ", err);
-		}
-		else {
-			// var resultData = [];
-			// data.forEach(function (articles) {
-			// 	resultData.push({
-			// 		title: articles.title,
-			// 		url: articles.url
-			// 	});
-			// });
-			// res.send(data);
-			res.json(data);
-		}
-	});
-});
+// // //Route to add an article to the list of saved articles
+// // app.post("/api/saved", function(req) {
+// // 	var body = req.body;
+// // 	var newArticle = {
+// // 		title: body.title,
+// // 		url: body.url,
+// // 		date: body.date,
+// // 		articleID: body.articleID
 
-// //Route to add an article to the list of saved articles
-// app.post("/api/saved", function(req) {
-// 	var body = req.body;
-// 	var newArticle = {
-// 		title: body.title,
-// 		url: body.url,
-// 		date: body.date,
-// 		articleID: body.articleID
+// // 	}	
 
-// 	}	
+// // 	var query = {articleID: body.articleID};
 
-// 	var query = {articleID: body.articleID};
+// // 	Article.findOneAndUpdate(query, newArticle, function (err) {
+// // 		if (err) {
+// // 			console.log(err);
+// // 		} else {
+// // 			console.log("Article saved successfully");
+// // 		}
+// // 	});
+// // });
 
-// 	Article.findOneAndUpdate(query, newArticle, function (err) {
+// //Route to delete an article from the list of saved articles
+// app.delete("/api/saved/:articleID", function (req) {
+// 	var articleID = req.params.articleID;
+// 	Article.remove({articleID: articleID}, function(err) {
 // 		if (err) {
 // 			console.log(err);
-// 		} else {
-// 			console.log("Article saved successfully");
 // 		}
 // 	});
 // });
 
-//Route to delete an article from the list of saved articles
-app.delete("/api/saved/:articleID", function (req) {
-	var articleID = req.params.articleID;
-	Article.remove({articleID: articleID}, function(err) {
-		if (err) {
-			console.log(err);
-		}
-	});
-});
-
 //Any non API routes will be directed to index.html
-app.use("*", function(req, res) {
+app.get("*", (req, res) => {
 	res.sendFile(".././client/public/index.html");
 });
-
-
-
 
 // Start the API server
 app.listen(PORT, function() {

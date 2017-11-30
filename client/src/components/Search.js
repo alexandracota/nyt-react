@@ -1,38 +1,47 @@
 import React from "react";
+import { Button, Form, FormGroup, Label, Input, FormText, Table } from 'reactstrap';
 
+// import Query from "./Search/Query";
+// import Results from "./Search/Results";
 
-import Query from "./Search/Query";
-import Results from "./Search/Results";
-
-import helpers from "../utils/helpers";
-
-import "./Search.css";
-
-const Search  = (props) => ({
-	getInitialState () {
-		return {
-			results: {}
-		};
-	},
-
-	setQuery (newQuery, newStart, newEnd) {
-		helpers.getArticles({}).then(function(data) {
-			this.setState({ results: { docs: data.docs } });
-		}.bind(this));
-	},
-
-	render () {
-		// console.log("Render Results", this.state.results);
-
+export default class Search extends React.Component {
+	render() {
 		return (
-			<div className="main-container">
-				{/*Set Query*/}
-				<Query />
-				{/*Pass results into component*/}
-				<Results />
-			</div>
-		);
-	}
-});
+			<Form onSubmit={this.props.onSearch}>
+				<FormGroup>
+					<Label for ='topic'>Topic</Label>
+					<Input
+						type="text"
+						required={true}
+						onChange={this.props.topicChanged}
+						value={this.props.topic}
+						placeholder='Topic' />
+				</FormGroup>
+				<FormGroup>
+					<Label for='startYear'>Start Year</Label>
+					<Input
+						type="number"
+						min={1900}
+						max={2017}
+						required={true}
+						onChange={this.props.startYearChanged}
+						value={this.props.begin}
+						placeholder="1967"/>
+				</FormGroup>
+				<FormGroup>
+					<Label for ='endYear'>End Year</Label>
+						<Input
+							type="number"
+							min={1900}
+							max="2017"
+							required={true}
+							onChange={this.props.EndYearChanged}
+							value={this.props.end}
+							placeholder="1999" />
+				</FormGroup>
+				<Button>Submit</Button>
+			</Form>
 
-export default Search;
+			)
+	}
+}

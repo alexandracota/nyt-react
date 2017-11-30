@@ -1,26 +1,9 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-//Import Main, Saved and Search components
+//Import only Main component
 import Main from "./components/Main";
-import Saved from "./components/Saved";
-import Search from "./components/Search";
+import ReactDOM from 'react-dom';
+import React from "react";
 
-import './App.css';
-
-//This App function displays the components
-const App = () =>
-<div>
-	<Router>
-		<div>
-			<Switch>
-				<Route exact path="/" component={Main} />
-				{/*<Route exact path="/saved" component={Saved} />*/}
-				<Route exact path="/search" component={Search} />
-			</Switch>
-		</div>
-	</Router>
-</div>
-
-//Export App to be used in index.js
-export default App;
+ReactDOM.render(
+	<Main />
+	document.getElementById('app')
+	)
